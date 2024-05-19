@@ -1,0 +1,75 @@
+To preface this: I have never taken a class on neural networks, and only have the most surface level understanding of them.
+In my pride, I am doing this from scratch, only learning from professionals when I hit road blocks too steep for me to climb on my own
+I did make an evolutionary algorithm in python once, which changed an array of integers from random to 9, which was kinda cool :)
+
+DNA is an array of ints -10 to +10
+	
+	Boolean: int >= 0 true, else false
+	Double (-1 to 1): x/10
+	
+	
+Neurons communicate doubles -1 to +1 (inclusive?)
+	Connector = 1 boolean gene
+	Neuron size = 4 double genes
+	
+	Enemy tic tac toe marks are -1
+	Friendly marks +1
+
+	Default value is 0
+	
+	Neurons average inputs to a final value
+	Apply a cubic formula to the final value x (y = ax^3 + bx^2 + cx + d)
+		Linear: Too simplistic, can not favor single values, only extreme ends.
+		Quad: Capable of /\ (Pick this value) or \/ (Anything but this value) + what linear can do. Useful but curious what can be gained from a little more computing. May switch to this if cubic is too slow.
+		Cubic: May be diminishing returns, but it's current year and I have the computer power to do it so why not. Quad + /\/. 
+		Quartic: Diminishing return imo. 
+	a, b, c, d taken as doubles
+	
+Reproduction
+	The lowest half of scoring bots are deleted
+	Bots are copied into the missing space from highest scoring to lowest, repeating if need be
+	Bots have half of their genes swapped with another bot taken at random
+	Individual numbers are randomly mutated
+		
+Classes:
+	Node - Represent a node in the matrix
+		SensoryOrgan - gets data from the TTT game
+		Output - gets data from the matrix
+		Neuron - gets data from the matrix and manipulates it
+	DNA - A class for manipulating a list of genes
+	Bot - A class for manipulating a creature which has a DNA object associated
+	NodeMatrix - Takes a bot, and using its DNA, decides the output for a given input
+	TTTBoard - A class defining the game tic tac toe
+	GamePlayer - manage initializing conditions and running the evolution of bots
+
+
+Inputs
+1	2	3	4	5	6	7	8	9	team	timer 
+Neurons
+optimal(?): 8 neurons(3 vertical lanes, 3 horizontal, and 2 diagonal)
+Outputs (one per each board tile)
+1	2	3	4	5	6	7	8	9
+highest unplayd output is played
+
+Different systems for representing the board
+	NodeMatrix
+		-1.0 = Enemy
+		0.0 = Empty
+		1.0 = Self
+	GameTree
+		0 = Empty
+		1 = X
+		2 = O	
+
+What does the driver do?
+	Define number of bots
+	Define size of bots
+	Define mutation rate
+	Create arraylist of bots with DNA
+	Take each bot, and fight it against the rest of the list in a game
+		Add the ranks together from each game
+	Sort by rank
+	Delete the bottom half
+	Repopulate
+	Swap genes
+	Mutate	
